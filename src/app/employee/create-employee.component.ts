@@ -35,4 +35,30 @@ export class CreateEmployeeComponent implements OnInit {
     console.log(this.employeeForm.get('fullName').value);
   }
 
+  // setValue - to update all form controls
+  // onLoadDataClick(): void {
+  //   this.employeeForm.setValue({
+  //     fullName: 'Nenad Stojkovic',
+  //     email: 'nenad@gmail.com',
+  //     skills: {
+  //       skillName: 'C#',
+  //       experienceInYears: 5,
+  //       proficiency: 'intermediate'
+  //     }
+  //   });
+  // }
+
+  // patchValue - to update a sub-set of form controls
+  onLoadDataClick(): void {
+    this.employeeForm.patchValue({
+      fullName: 'Pragim Technologies',
+      email: 'pragim@pragimtech.com',
+      // skills: {
+      //   skillName: 'C#',
+      //   experienceInYears: 5,
+      //   proficiency: 'beginner'
+      // }
+    });
+  }
+
 }
