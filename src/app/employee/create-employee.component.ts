@@ -8,7 +8,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class CreateEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
-  fullNameLength = 0;
 
   constructor(private fb: FormBuilder) { }
 
@@ -22,24 +21,21 @@ export class CreateEmployeeComponent implements OnInit {
         proficiency: ['beginner']
       }),
     });
+  }
 
-    this.employeeForm.get('fullName').valueChanges.subscribe(
-      (value: string) => {
-        this.fullNameLength = value.length;
+  logKeyValuePairs(group: FormGroup): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      // abstractControl - formControl or nested formGroup
+      const abstractControl = group.get(key);
+      if (abstractControl instanceof FormGroup) {
+        // this.logKeyValuePairs(abstractControl);
+        abstractControl.disable();
+      } else {
+        // console.log('Key = ' + key + ' && Value = ' + abstractControl.value);
+        // abstractControl.disable();
+        abstractControl.markAsDirty();
       }
-    );
-
-    // this.employeeForm.valueChanges.subscribe(
-    //   (value: any) => {
-    //     console.log(JSON.stringify(value));
-    //   }
-    // );
-
-    this.employeeForm.get('skills').valueChanges.subscribe(
-      (value: any) => {
-        console.log(JSON.stringify(value));
-      }
-    );
+    });
   }
 
   onSubmit(): void {
@@ -52,30 +48,8 @@ export class CreateEmployeeComponent implements OnInit {
     console.log(this.employeeForm.get('fullName').value);
   }
 
-  // setValue - to update all form controls
-  // onLoadDataClick(): void {
-  //   this.employeeForm.setValue({
-  //     fullName: 'Nenad Stojkovic',
-  //     email: 'nenad@gmail.com',
-  //     skills: {
-  //       skillName: 'C#',
-  //       experienceInYears: 5,
-  //       proficiency: 'intermediate'
-  //     }
-  //   });
-  // }
-
-  // patchValue - to update a sub-set of form controls
   onLoadDataClick(): void {
-    this.employeeForm.patchValue({
-      fullName: 'Pragim Technologies',
-      email: 'pragim@pragimtech.com',
-      // skills: {
-      //   skillName: 'C#',
-      //   experienceInYears: 5,
-      //   proficiency: 'beginner'
-      // }
-    });
+    this.logKeyValuePairs(this.employeeForm);
   }
 
 }

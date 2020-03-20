@@ -10,7 +10,6 @@
                 <label class="col-sm-2 control-label" for="fullName">Full Name</label>
                 <div class="col-sm-8">
                     <input id="fullName" type="text" class="form-control" formControlName="fullName">
-                    <label>{{ fullNameLength }}</label>
                     <span class="help-block" *ngIf="((employeeForm.get('fullName').touched ||
                                                         employeeForm.get('fullName').dirty) &&
                                                         employeeForm.get('fullName').errors)">
