@@ -12,6 +12,7 @@ export class CreateEmployeeComponent implements OnInit {
   formErrors = {
     fullName: '',
     email: '',
+    phone: '',
     skillName: '',
     experienceInYears: '',
     proficiency: ''
@@ -25,6 +26,9 @@ export class CreateEmployeeComponent implements OnInit {
     },
     email: {
       required: 'Email is required.'
+    },
+    phone: {
+      required: 'Phone is required.'
     },
     skillName: {
       required: 'Skill Name is required.',
@@ -42,7 +46,9 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() {
     this.employeeForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      contactPreference: ['email'],
       email: ['', [Validators.required]],
+      phone: [''],
       skills: this.fb.group({
         skillName: ['', [Validators.required]],
         experienceInYears: ['', [Validators.required]],
@@ -50,9 +56,30 @@ export class CreateEmployeeComponent implements OnInit {
       }),
     });
 
+    this.employeeForm.get('contactPreference')
+      .valueChanges.subscribe((data: string) => {
+        this.onContactPrefernceChange(data);
+    });
+
     this.employeeForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.employeeForm);
     });
+  }
+
+  onContactPrefernceChange(selectedValue: string) {
+    const phoneFormControl = this.employeeForm.get('phone');
+    const emailFormControl = this.employeeForm.get('email');
+    if (selectedValue === 'phone') {
+      // phoneFormControl.setValidators([Validators.required, Validators.minLength(5)]);
+      phoneFormControl.setValidators(Validators.required);
+      emailFormControl.clearValidators();
+    } else {
+      phoneFormControl.clearValidators();
+      emailFormControl.setValidators(Validators.required);
+
+    }
+    phoneFormControl.updateValueAndValidity();
+    emailFormControl.updateValueAndValidity();
   }
 
   logValidationErrors(group: FormGroup = this.employeeForm): void {
