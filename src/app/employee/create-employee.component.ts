@@ -62,11 +62,9 @@ export class CreateEmployeeComponent implements OnInit {
         confirmEmail: ['', [Validators.required]],
       }, { validator: matchEmails }),
       phone: [''],
-      skills: this.fb.group({
-        skillName: ['', [Validators.required]],
-        experienceInYears: ['', [Validators.required]],
-        proficiency: ['', [Validators.required]]
-      }),
+      skills: this.fb.array([
+        this.addSkillFormGroup()
+      ])
     });
 
     this.employeeForm.get('contactPreference')
@@ -79,20 +77,31 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
+  addSkillFormGroup(): FormGroup {
+    return this.fb.group({
+      skillName: ['', Validators.required],
+      experienceInYears: ['', Validators.required],
+      proficiency: ['', Validators.required]
+    });
+  }
+
   onContactPrefernceChange(selectedValue: string) {
     const phoneFormControl = this.employeeForm.get('phone');
-    const emailFormControl = this.employeeForm.get('email');
+    const emailFormControl = this.employeeForm.get('emailGroup').get('email');
+    const confirmEmailFormControl = this.employeeForm.get('emailGroup').get('confirmEmail');
     if (selectedValue === 'phone') {
       // phoneFormControl.setValidators([Validators.required, Validators.minLength(5)]);
       phoneFormControl.setValidators(Validators.required);
       emailFormControl.clearValidators();
+      confirmEmailFormControl.clearValidators();
     } else {
       phoneFormControl.clearValidators();
       emailFormControl.setValidators(Validators.required);
-
+      confirmEmailFormControl.setValidators(Validators.required);
     }
     phoneFormControl.updateValueAndValidity();
     emailFormControl.updateValueAndValidity();
+    confirmEmailFormControl.updateValueAndValidity();
   }
 
   logValidationErrors(group: FormGroup = this.employeeForm): void {
@@ -112,6 +121,15 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
       }
+
+      if (abstractControl instanceof FormArray) {
+        for (const control of abstractControl.controls) {
+          if (control instanceof FormGroup) {
+            this.logValidationErrors(control);
+          }
+        }
+      }
+
     });
   }
 
