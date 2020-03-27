@@ -98,17 +98,17 @@ export class CreateEmployeeComponent implements OnInit {
       );
   }
 
-  // FIX: custom Validator emailDomain doesn't work now
   editEmployee(employee: IEmployee) {
     this.employeeForm.patchValue({
       fullName: employee.fullName,
       contactPreference: employee.contactPreference,
-      emailGroup: {
-        email: employee.email,
-        confirmEmail: employee.email
-      },
       phone: employee.phone
     });
+
+    this.employeeForm.setControl('emailGroup', this.fb.group({
+      email: [employee.email, [Validators.required, CustomValidators.emailDomain('gmail.com')]],
+      confirmEmail: [employee.email, [Validators.required]],
+    }, { validator: matchEmails }));
 
     this.employeeForm.setControl('skills', this.setExistingSkills(employee.skills));
   }
@@ -151,13 +151,12 @@ export class CreateEmployeeComponent implements OnInit {
     const emailFormControl = this.employeeForm.get('emailGroup').get('email');
     const confirmEmailFormControl = this.employeeForm.get('emailGroup').get('confirmEmail');
     if (selectedValue === 'phone') {
-      // phoneFormControl.setValidators([Validators.required, Validators.minLength(5)]);
       phoneFormControl.setValidators(Validators.required);
       emailFormControl.clearValidators();
       confirmEmailFormControl.clearValidators();
     } else {
       phoneFormControl.clearValidators();
-      emailFormControl.setValidators(Validators.required);
+      emailFormControl.setValidators([Validators.required, CustomValidators.emailDomain('gmail.com')]);
       confirmEmailFormControl.setValidators(Validators.required);
     }
     phoneFormControl.updateValueAndValidity();
