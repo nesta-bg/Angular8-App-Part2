@@ -14,6 +14,7 @@ import { ISkill } from './ISkill';
 export class CreateEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
   employee: IEmployee;
+  pageTitle: string;
 
   formErrors = {
   };
@@ -70,7 +71,18 @@ export class CreateEmployeeComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const empId = +params.get('id');
       if (empId) {
+        this.pageTitle = 'Edit Employee';
         this.getEmployee(empId);
+      } else {
+        this.pageTitle = 'Create Employee';
+        this.employee = {
+          id: null,
+          fullName: '',
+          contactPreference: '',
+          email: '',
+          phone: null,
+          skills: []
+        };
       }
     });
   }
@@ -177,10 +189,18 @@ export class CreateEmployeeComponent implements OnInit {
 
   onSubmit(): void {
     this.mapFormValuesToEmployeeModel();
-    this.employeeService.updateEmployee(this.employee).subscribe(
-      () => this.router.navigate(['list']),
-      (err: any) => console.log(err)
-    );
+
+    if (this.employee.id) {
+      this.employeeService.updateEmployee(this.employee).subscribe(
+        () => this.router.navigate(['list']),
+        (err: any) => console.log(err)
+      );
+    } else {
+        this.employeeService.addEmployee(this.employee).subscribe(
+          () => this.router.navigate(['list']),
+          (err: any) => console.log(err)
+        );
+    }
   }
 
   mapFormValuesToEmployeeModel() {

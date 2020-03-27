@@ -2,9 +2,9 @@
   "employees": [
     {
       "id": 1,
-      "fullName": "Mark1",
+      "fullName": "Mark",
       "contactPreference": "phone",
-      "email": "mark@email.com",
+      "email": "mark@gmail.com",
       "phone": "56412389722",
       "skills": [
         {
@@ -40,6 +40,20 @@
           "skillName": "LINQ",
           "experienceInYears": 3,
           "proficiency": "advanced"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "fullName": "David",
+      "contactPreference": "email",
+      "email": "david@gmail.com",
+      "phone": "",
+      "skills": [
+        {
+          "skillName": "C#",
+          "experienceInYears": "2",
+          "proficiency": "beginner"
         }
       ]
     }
