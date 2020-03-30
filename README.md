@@ -1,5 +1,47 @@
 # Angular8AppPart2
 
+Angular 8 Application Cheat Sheet - Part 2
+
+* Installing Bootstrap and JQuery.
+* Setting Up Routing.
+* Angular Reactive Forms.
+* Angular Form Control and Form Group.
+* Angular Nested Form Groups.
+* Angular setValue and patchValue Methods.
+* Angular FormBuilder.
+* Angular Reactive Forms Validation.
+* Angular Form Control valueChanges.
+* Loop Through all Form Controls in FormGroup in Reactive Form.
+* Move Validation Messages to the Component Class in Reactive Form.
+* Move Validation Logic to the Component Class in Reactive Form.
+* Dynamically Adding or Removing Form Control Validators in Reactive Form.
+* Angular Reactive Form Custom Validator.
+* Angular Reactive Form Custom Validator with Parameters.
+* Making Angular Custom Validator Reusable.
+* Angular Reactive Forms Cross Field Validation.
+* Angular FormArray.
+* Creating FormArray of FormGroup Objects in Angular.
+* Angular Dynamic Forms.
+* Generate Unique id Value for Dynamically Created Form Controls in Angular.
+* Angular Dynamic Forms Validation.
+* Angular FormArray Validation.
+* Remove Dynamically Created Form Controls in Angular.
+* RxJS Operators in Angular Services.
+* Edit Reactive Form in Angular.
+* Angular Populate FormArray.
+* Angular Reactive Forms Put.
+* Angular Reactive Forms Post. 
+* Angular Modules.
+* Creating Feature Module in Angular.
+* Creating Feature Routing Module in Angular.
+* Creating Shared Module in Angular.
+* Grouping Routes and Creating Component Less Route in Angular.
+* Lazy Loading in Angular.
+* Preloading Angular Modules.
+* Angular Custom Preloading Strategy.
+
+# Angular8AppPart2
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
 ## Development server
